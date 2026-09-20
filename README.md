@@ -13,7 +13,7 @@ b. dict_responses - A dictionary (dict[str, list[str]]) containing the default k
 
 Core Objectives
 
-1.Rule-Based Slang Chatbot 
+1. Rule-Based Slang Chatbot 
 a. Recognizes specific internet slang and common keywords (e.g., "rizz", "no cap", "slay", "skibidi").
 b. Delivers randomized, context-relevant replies to keep conversations dyna
 
@@ -21,8 +21,8 @@ b. Delivers randomized, context-relevant replies to keep conversations dyna
 When given a phrase or keyword it does not recognize, it prompts the user to teach it what to say.
 Learns new responses in real-time during the conversation.
 
-2.Data Persistence
+3. Data Persistence
 Automatically saves new words and responses to memory.json so the bot retains everything it learned even after the program restarts.
 
-3. Input Sanitization
+4. Input Sanitization
 Cleans punctuation and normalizes user input to make keyword matching flexible and fault-tolerant.
