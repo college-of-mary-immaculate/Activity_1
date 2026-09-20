@@ -8,8 +8,8 @@ Tech Stack:
 3. re - Python's Regular Expressions engine. Used to sanitize user input by stripping away punctuation
 
 Data Structures & Globals
-1. base_memory_file - A string ("memory.json") storing the path to the persistent storage file.
-2. dict_responses - A dictionary (dict[str, list[str]]) containing the default knowledge base of slang terms mapped to lists of potential replies.
+a. base_memory_file - A string ("memory.json") storing the path to the persistent storage file.
+b. dict_responses - A dictionary (dict[str, list[str]]) containing the default knowledge base of slang terms mapped to lists of potential replies.
 
 Core Objectives
 
@@ -22,8 +22,7 @@ When given a phrase or keyword it does not recognize, it prompts the user to tea
 Learns new responses in real-time during the conversation.
 
 2.Data Persistence
-Automatically saves new words and responses to 
-memory.json so the bot retains everything it learned even after the program restarts.
+Automatically saves new words and responses to memory.json so the bot retains everything it learned even after the program restarts.
 
 3. Input Sanitization
 Cleans punctuation and normalizes user input to make keyword matching flexible and fault-tolerant.
