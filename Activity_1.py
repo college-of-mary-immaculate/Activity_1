@@ -3,7 +3,7 @@ import random
 import re
 
 
-base_memory_file = memory.json
+base_memory_file = "memory.json"
 
 
 dict_responses = {  
@@ -59,7 +59,7 @@ def load_memory():
         return dict_responses
     
 def save_memory(memory):
-    with open(dict_responses, "w") as f:
+    with open(base_memory_file, "w") as f:
         json.dump(memory, f, indent=4)
 
 
