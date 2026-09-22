@@ -149,12 +149,10 @@ def clean_input(text):
 
 def get_response(user_input, memory):
     cleaned = clean_input(user_input)
-
-    # 1. Exact match check (excluding general default fallback)
+    
     if cleaned in memory and cleaned != "default":
         return random.choice(memory[cleaned])
-
-    # 2. Sort keys by length descending so longer phrases match first (e.g. "no cap" before "cap")
+    
     sorted_keys = sorted(memory.keys(), key=len, reverse=True)
 
     for key in sorted_keys:
@@ -165,7 +163,6 @@ def get_response(user_input, memory):
         if re.search(pattern, cleaned):
             return random.choice(memory[key])
 
-    # 3. Fallback response for unrecognized random messages
     if "default" in memory and memory["default"]:
         return random.choice(memory["default"])
 
