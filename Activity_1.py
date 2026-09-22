@@ -17,7 +17,7 @@ dict_responses = {
     "bet" : [
         "Agreed to yo all",
         "I bet on that.......",
-        "Cool, Ya Bruh",
+        "Cool, Ya Bruh I like that",
     ],
     
     "rizz": [
