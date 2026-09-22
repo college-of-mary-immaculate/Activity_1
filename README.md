@@ -5,7 +5,8 @@ Tech Stack:
 
 1. json - Handles data serialization and persistence. It reads from and writes to memory.json so learned phrases survive program restarts.
 2. random - Used for response variety via random.choice(), picking a random response when multiple answers exist for a keyword.
-3. re - Python's Regular Expressions engine. Used to sanitize user input by stripping away punctuation
+3. re - Python's Regular Expressions engine. Used to sanitize user input by stripping away punctuation use as cleaning and comparing texts
+4. os - use of operating system to help tasks like the os supports the clearing of response
 
 Data Structures & Globals
 a. base_memory_file - A string ("memory.json") storing the path to the persistent storage file.
