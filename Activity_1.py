@@ -11,28 +11,41 @@ dict_responses = {
         "Fr, For Real, Oh My God!",
         "No cap detected, Real Talk",
         "You didn't lie, my Friend",
-        "Oh no! No Way!"
+        "Oh no! No Way!",
+    ],
+
+    "bet" : [
+        "Agreed to yo all",
+        "I bet on that.......",
+        "Cool, Ya Bruh",
     ],
     
     "rizz": [
-        "W rizz or L rizz? 🤨",
+        "W rizz or L rizz? ",
         "Unspoken rizz right there.",
         "Bro thinks they have infinite rizz.",
     ],
     "slay": [
-        "Ate and left no crumbs! 💅",
+        "Ate and left no crumbs! ",
         "Absolute queen behavior.",
         "Slaying all day, everyday.",
         "Fire..............."
     ],
     "skibidi": [
         "Ohio moment...",
-        "Please don't brainrot me further. 💀",
+        "Please don't brainrot me further. ",
         "What in the sigma...",
     ],
-    "gyatt": ["Bro is down astronomically. 💀", "Calm down, chill out!"],
+
+    "mid" : [
+        "not enough maxxing, average!",
+        "is that your rizzing about?",
+        "Meh, give a B............"
+    ],
+
+    "gyatt": ["Bro is down astronomically. ", "Calm down, chill out!"],
     "delulu": [
-        "Delulu is the solulu, I guess. 🤡",
+        "Delulu is the solulu, I guess. ",
         "Manifesting for you, bestie.",
     ],
     "hello": [
@@ -44,7 +57,7 @@ dict_responses = {
     "sus": [
         "You so......... weirdass",
         "Eeeee!!!!!!!!!! gross",
-        "What the..........?"
+        "What the..........?",
     ]
         
 }
@@ -69,7 +82,6 @@ def clean_input(text):
 
 
 def get_response(user_input, memory):
-    """Matches keyword/phrase in user input or returns None if unknown."""
     cleaned = clean_input(user_input)
 
 
