@@ -29,7 +29,7 @@ dict_responses = {
         "Ate and left no crumbs! ",
         "Absolute queen behavior.",
         "Slaying all day, everyday.",
-        "Fire..............."
+        "Fire...............",
     ],
     "skibidi": [
         "Ohio moment...",
@@ -40,7 +40,8 @@ dict_responses = {
     "mid" : [
         "not enough maxxing, average!",
         "is that your rizzing about?",
-        "Meh, give a B............"
+        "Meh, give a B............",
+        "Is that it?",
     ],
 
     "gyatt": ["Bro is down astronomically. ", "Calm down, chill out!"],
