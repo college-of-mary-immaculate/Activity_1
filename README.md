@@ -26,3 +26,19 @@ Automatically saves new words and responses to memory.json so the bot retains ev
 
 4. Input Sanitization
 Cleans punctuation and normalizes user input to make keyword matching flexible and fault-tolerant.
+
+Functions
+
+1.load_memory - is to upload the responses, from the dictionary to json file as you make a response. checking the json memory file if has data or empty memory
+
+2.save_memory - saving responses to the json file as you update the input data for responses
+
+3.clean_input - text reading function for inputs as you match the keywords from the input to the dictionary with responses data.
+
+4.get_response - process message in 3 steps:
+
+a.Exact Match: Checks if the entire sanitized input matches a key in memory.
+b.Prioritized Word Boundary Match:
+- Sorts keys by length in descending order (sorted_keys = sorted(memory.keys(), key=len, reverse=True)), ensuring multi-word terms like "no cap" are checked before "cap".
+- Uses re.search(r"\b" + re.escape(key) + r"\b", cleaned) to ensure "cap" matches as a whole word and doesn't trigger inside unrelated words like "caption".
+
