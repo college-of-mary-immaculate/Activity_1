@@ -1,5 +1,5 @@
 Keyword Chatbot:
-Keyword Chatbot is a rule-based, learning chatbot designed to respond to slang/keywords (e.g., "rizz", "slay", "sus"). If the user types something the bot doesn't recognize, the bot asks the user to teach it a response, saving newly learned words and answers persistently to a JSON file.
+Keyword Chatbot is a rule-based, learning chatbot designed to respond to slang/keywords (e.g., "rizz", "slay", "sus"). If the user types something the bot doesn't recognize, the bot asks the user to teach it a response, saving newly learned words and answers persistently to a JSON file (memory.json
 
 Tech Stack:
 
