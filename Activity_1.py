@@ -7,11 +7,19 @@ base_memory_file = "memory.json"
 
 
 dict_responses = {  
+
+    "cap": [
+        "you lyin........ get out!",
+        "shut up, that's a joke",
+        "come one, spit something",
+    ],
+
     "no cap" : [
         "Fr, For Real, Oh My God!",
         "No cap detected, Real Talk",
         "You didn't lie, my Friend",
         "Oh no! No Way!",
+        "So Tru Brah"
     ],
 
     "bet" : [
