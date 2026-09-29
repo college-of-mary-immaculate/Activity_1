@@ -2,6 +2,8 @@ import json
 import os
 import random
 import re
+import sys
+
 
 
 base_memory_file = "memory.json"
@@ -211,17 +213,18 @@ def load_memory():
     """Robust memory loading using the os library to check file existence and size."""
     if os.path.exists(base_memory_file) and os.path.getsize(base_memory_file) > 0:
         try:
-            with open(base_memory_file, "r") as f:
+            with open(base_memory_file, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                updated = False
-                for k, v in dict_responses.items():
-                    if k not in data:
-                        data[k] = v
-                        updated = True
-                if updated:
-                    save_memory(data)
-                return data
-        except json.JSONDecodeError:
+                if isinstance(data, dict):
+                    updated = False
+                    for k, v in dict_responses.items():
+                        if k not in data:
+                            data[k] = v
+                            updated = True
+                    if updated:
+                        save_memory(data)
+                    return data
+        except (json.JSONDecodeError, UnicodeDecodeError):
             print("⚠️ Memory file was corrupted. Re-initializing default memory...")
 
     # Create/reset memory file if missing or corrupted
@@ -231,17 +234,20 @@ def load_memory():
 
 def save_memory(memory):
     """Saves memory back to JSON file."""
-    with open(base_memory_file, "w") as f:
-        json.dump(memory, f, indent=4)
+    with open(base_memory_file, "w", encoding="utf-8") as f:
+        json.dump(memory, f, indent=4, ensure_ascii=False)
 
 
 def clean_input(text):
     text = text.lower().strip()
-    return re.sub(r"[^\w\s]", "", text)
+    cleaned = re.sub(r"[^\w\s]", "", text)
+    return re.sub(r"\s+", " ", cleaned).strip()
 
 
 def get_response(user_input, memory):
     cleaned = clean_input(user_input)
+    if not cleaned:
+        return None
     
     if cleaned in memory and cleaned != "default":
         return random.choice(memory[cleaned])
@@ -249,7 +255,7 @@ def get_response(user_input, memory):
     sorted_keys = sorted(memory.keys(), key=len, reverse=True)
 
     for key in sorted_keys:
-        if key == "default":
+        if key == "default" or not key.strip():
             continue
         # Use word boundaries so "cap" doesn't match inside "caption"
         pattern = r"\b" + re.escape(key) + r"\b"
@@ -263,18 +269,28 @@ def get_response(user_input, memory):
 
 
 def main():
+    # Ensure console handles UTF-8 emojis on Windows
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if hasattr(sys.stdin, "reconfigure"):
+        sys.stdin.reconfigure(encoding="utf-8", errors="replace")
+
     memory = load_memory()
-    print("� Tekken Bot: Yo! I'm your Tekken Guides & FYI Coach (Gen Z style). Type 'quit' to exit, 'teach' to train me, or 'clear' to clean screen.")
+    print("🥊 Tekken Bot: Yo! I'm your Tekken Guides & FYI Coach (Gen Z style). Type 'quit' to exit, 'teach' to train me, or 'clear' to clean screen.")
     print("---------------------------------------------------------------------------------------------------")
 
     while True:
-        user_input = input("You: ").strip()
+        try:
+            user_input = input("You: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\n🥊 Tekken Bot: Peace out! ✌️ Go slay in ranked online!")
+            break
 
         if not user_input:
             continue
 
         if user_input.lower() in ["quit", "exit"]:
-            print("� Tekken Bot: Peace out! ✌️ Go slay in ranked online!")
+            print("🥊 Tekken Bot: Peace out! ✌️ Go slay in ranked online!")
             break
 
         if user_input.lower() in ["clear", "cls"]:
@@ -286,24 +302,32 @@ def main():
         if user_input.lower() == "teach":
             phrase = input("🥊 Tekken Bot: What Tekken term or phrase should I learn? ").strip()
             if phrase:
-                reply = input(f"� Tekken Bot: What should I reply when someone says '{phrase}'? ").strip()
+                cleaned_key = clean_input(phrase)
+                if not cleaned_key:
+                    print("🥊 Tekken Bot: That term has no valid words to learn! Teaching cancelled.")
+                    continue
+                reply = input(f"🥊 Tekken Bot: What should I reply when someone says '{phrase}'? ").strip()
                 if reply:
-                    cleaned_key = clean_input(phrase)
                     if cleaned_key not in memory:
                         memory[cleaned_key] = []
                     memory[cleaned_key].append(reply)
                     save_memory(memory)
-                    print("� Tekken Bot: Bet! I learned it. Try asking me again!")
+                    print("🥊 Tekken Bot: Bet! I learned it. Try asking me again!")
+                else:
+                    print("🥊 Tekken Bot: No reply entered. Teaching cancelled.")
+            else:
+                print("🥊 Tekken Bot: No term entered. Teaching cancelled.")
             continue
 
         response = get_response(user_input, memory)
 
         if response:
             print(f"🥊 Tekken Bot: {response}")
+            if response in memory.get("default", []):
+                print("🥊 Tekken Bot: I don't know how to respond specifically to that Tekken query yet. Type 'teach' to train me! 🥺")
         else:
             print("🥊 Tekken Bot: I don't know how to respond to that Tekken query yet. Type 'teach' to train me! 🥺")
 
 
 if __name__ == "__main__":
     main()
-

@@ -1,5 +1,6 @@
 Keyword Chatbot:
-Keyword Chatbot is a rule-based, learning chatbot designed to respond to slang/keywords (e.g., "rizz", "slay", "sus"). If the user types something the bot doesn't recognize, the bot asks the user to teach it a response, saving newly learned words and answers persistently to a JSON file (memory.json
+
+Keyword Chatbot is a rule-based, learning chatbot designed to respond to slang/keywords (e.g., "rizz", "slay", "sus"). If the user types something the bot doesn't recognize, the bot asks the user to teach it a response, saving newly learned words and answers persistently to a JSON file (memory.json).
 
 Tech Stack:
 
@@ -7,6 +8,8 @@ Tech Stack:
 2. random - Used for response variety via random.choice(), picking a random response when multiple answers exist for a keyword.
 3. re - Python's Regular Expressions engine. Used to sanitize user input by stripping away punctuation use as cleaning and comparing texts
 4. os - use of operating system to help tasks like the os supports the clearing of response
+
+5. sys -
 
 Data Structures & Globals
 a. base_memory_file - A string ("memory.json") storing the path to the persistent storage file.
@@ -16,7 +19,7 @@ Core Objectives
 
 1. Rule-Based Slang Chatbot 
 a. Recognizes specific internet slang and common keywords (e.g., "rizz", "no cap", "slay", "skibidi").
-b. Delivers randomized, context-relevant replies to keep conversations dyna
+b. Delivers randomized, context-relevant replies to keep conversations dynamic.
 
 2. Self-Learning / Dynamic Knowledge Base:
 When given a phrase or keyword it does not recognize, it prompts the user to teach it what to say.
@@ -39,7 +42,11 @@ Functions
 4.get_response - process message in 3 steps:
 
 a.Exact Match: Checks if the entire sanitized input matches a key in memory.
+
 b.Prioritized Word Boundary Match:
 - Sorts keys by length in descending order (sorted_keys = sorted(memory.keys(), key=len, reverse=True)), ensuring multi-word terms like "no cap" are checked before "cap".
 - Uses re.search(r"\b" + re.escape(key) + r"\b", cleaned) to ensure "cap" matches as a whole word and doesn't trigger inside unrelated words like "caption".
+
+c.Default Fallback Match:
+- If no exact or word-boundary keyword matches, returns a randomized fallback tip from "default" in memory, and prompts the user to teach it.
 
